@@ -152,12 +152,16 @@ class UserTableViewController: UITableViewController, UISearchResultsUpdating {
         // Configure the cell...
       
       let users = (searchController.isActive) ? searchResultsArray[indexPath.row] : user[indexPath.row]
-      cell.thumbnailImageView.image = UIImage(named: "https://avatars.githubusercontent.com/u/1?v=3")
+      let url = NSURL(string: users.image!)
+      let data = NSData(contentsOf: url! as URL) //make sure your image in this url does exist, otherwise unwrap in a if let check
+      cell.thumbnailImageView.image = UIImage(data: data! as Data)
+      
+      //cell.thumbnailImageView.image = UIImage(named: user[indexPath.row].image!)
       
       cell.loginLabel.text = users.login
       cell.linkLabel.text = users.link
-      //cell.thumbnailImageView.layer.cornerRadius = cell.thumbnailImageView.frame.size.height / 2
-      //cell.thumbnailImageView.clipsToBounds = true
+      cell.thumbnailImageView.layer.cornerRadius = cell.thumbnailImageView.frame.size.height / 2
+      cell.thumbnailImageView.clipsToBounds = true
 
       return cell
     }
