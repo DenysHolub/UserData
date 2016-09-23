@@ -24,7 +24,7 @@ class UserTableViewController: UITableViewController, UISearchResultsUpdating {
     override func viewDidLoad() {
       super.viewDidLoad()
       
-      searchBarSearchButtonClicked()
+      sendUrlRequest()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -77,7 +77,7 @@ class UserTableViewController: UITableViewController, UISearchResultsUpdating {
     })
   }
   
-  func searchBarSearchButtonClicked() {
+  func sendUrlRequest() {
     
     
     UIApplication.shared.isNetworkActivityIndicatorVisible = true
@@ -143,6 +143,10 @@ class UserTableViewController: UITableViewController, UISearchResultsUpdating {
     }
 
   
+  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath) {
+    print("You selected cell #\(indexPath.row)!")
+  }
+  
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       
       let cellIdentifier = "Cell"
@@ -165,8 +169,6 @@ class UserTableViewController: UITableViewController, UISearchResultsUpdating {
 
       return cell
     }
-  
-
   
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -206,14 +208,17 @@ class UserTableViewController: UITableViewController, UISearchResultsUpdating {
     }
     */
 
-    /*
+  
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+      if segue.identifier == "showImageSegue" {
+        if let indexPath = self.tableView.indexPathForSelectedRow {
+          let detinationVC = segue.destination as! ImageViewController
+          detinationVC.user = (searchController.isActive) ? searchResultsArray[indexPath.row] : user[indexPath.row]
+        }
+      }
     }
-    */
 
 }

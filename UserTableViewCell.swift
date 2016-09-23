@@ -13,6 +13,8 @@ class UserTableViewCell: UITableViewCell {
   @IBOutlet weak var thumbnailImageView: UIImageView!
   @IBOutlet weak var loginLabel: UILabel!
   @IBOutlet weak var linkLabel: UILabel!
+  
+  
 
     override func awakeFromNib() {
         super.awakeFromNib()
